@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MCQ Generator</title>
+    <style>
+        body.light-mode {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        body.dark-mode {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        h1, h3 {
+            color: #1a17c3;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, button {
+            padding: 8px;
+            margin: 5px 0;
+            width: 300px;
+        }
+
+        button {
+            background-color: #3238d4;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #07298f;
+        }
+
+        #theme-toggle {
+            margin-bottom: 20px;
+            background-color: #675d5d;
+            color: #fff;
+        }
+
+        pre {
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+
+        .light-mode pre {
+            background-color: #f4f4f4;
+            color: #000;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <button id="theme-toggle">Toggle Theme</button>
+
+    <h1> GenAI Project </h1>
+    <h3>This model is created for Generating the MCQs from user Input....</h3>
+    
+    <form method="POST">
+        <label>Subject:</label><br>
+        <input type="text" name="subject" required value="{{ subject or '' }}"><br><br>
+        
+        <label>Experience (years):</label><br>
+        <input type="number" name="experience" required value="{{ experience or '' }}"><br><br>
+        
+        <label>Number of MCQs:</label><br>
+        <input type="number" name="number" required value="{{ number or '' }}"><br><br>
+
+        <button type="submit" name="action" value="generate">Generate</button>
+        <button type="submit" name="action" value="delete">Delete</button>
+    </form>
+
+    {% if result %}
+        <h4 style="color:#281cd2;">Generated MCQs:</h4>
+        <pre>{{ result }}</pre>
+    {% endif %}
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            body.classList.toggle('light-mode');
+
+            // Optional: Change button text too
+            toggleBtn.textContent = body.classList.contains('dark-mode') ? "Switch to Light Mode" : "Switch to Dark Mode";
+        });
+    </script>
+</body>
+</html>
